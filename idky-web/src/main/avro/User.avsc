@@ -1,0 +1,17 @@
+{
+  "namespace": "org.manriquecms.idky.web.model",
+  "type": "record",
+  "name": "User",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "default": "no_name"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "default": "no_pass"
+    }
+  ]
+}

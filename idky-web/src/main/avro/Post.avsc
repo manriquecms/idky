@@ -1,0 +1,17 @@
+{
+  "namespace": "org.manriquecms.idky.web.model",
+  "type": "record",
+  "name": "Post",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "default": "no_name"
+    },
+    {
+      "name": "id",
+      "type": "int",
+      "default": 0
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+org/manriquecms/idky/web/controller/model/BasicResponse.class
+org/manriquecms/idky/web/model/User.class
+org/manriquecms/idky/web/service/KafkaServiceImpl.class
+org/manriquecms/idky/web/model/Post.class
+org/manriquecms/idky/web/model/User$1.class
+org/manriquecms/idky/web/model/User$Builder.class
+org/manriquecms/idky/web/service/KafkaService.class
+org/manriquecms/idky/web/IdkyApp.class
+org/manriquecms/idky/web/model/Post$1.class
+org/manriquecms/idky/web/controller/IdkyController.class
+org/manriquecms/idky/web/model/Post$Builder.class
