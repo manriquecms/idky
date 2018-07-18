@@ -1,7 +1,0 @@
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/controller/IdkyController.java
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/controller/model/BasicResponse.java
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/model/User.java
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/model/Post.java
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/service/KafkaService.java
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/IdkyApp.java
-/home/cmanrique/dev/idky/idky-web/src/main/java/org/manriquecms/idky/web/service/KafkaServiceImpl.java
