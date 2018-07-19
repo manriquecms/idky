@@ -91,20 +91,21 @@ public class MafiaServiceImpl implements MafiaService {
     }
 
     @Override
-    public void generateRandomFamily(int levels, int maxSubordinates) {
+    public void generateRandomFamily(int levels, int maxSubordinates, boolean alwaysMax) {
         resetFamily();
         var padrino = Member.randomMember();
         addMember(padrino);
-        generateLevel(padrino.getId(), levels, maxSubordinates);
+        generateLevel(padrino.getId(), levels, maxSubordinates, alwaysMax);
     }
 
-    private void generateLevel(UUID idBoss, int levels, int maxSubordinates) {
-        if (levels > 0) {
-            var randomSubordinates = random.nextInt(maxSubordinates);
+    private void generateLevel(UUID idBoss, int levels, int maxSubordinates, boolean alwaysMax) {
+        if (levels-- > 0) {
+            var randomSubordinates = alwaysMax ? maxSubordinates : random.nextInt(maxSubordinates);
             for (int i = 0; i < randomSubordinates; i++) {
+                log.debug("level "+levels+" boss "+idBoss+" sub "+i);
                 var member = Member.randomMember(idBoss);
                 addMember(member);
-                generateLevel(member.getId(),levels--,maxSubordinates);
+                generateLevel(member.getId(),levels,maxSubordinates, alwaysMax);
             }
         }
     }

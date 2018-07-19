@@ -19,5 +19,5 @@ public interface MafiaService {
     void murderMember(UUID id);
     boolean needSpecialSurveillance(UUID id);
     Set<Member> findAllSpecialSurveillance();
-    void generateRandomFamily(int levels, int maxSubordinates);
+    void generateRandomFamily(int levels, int maxSubordinates, boolean alwaysMax);
 }
