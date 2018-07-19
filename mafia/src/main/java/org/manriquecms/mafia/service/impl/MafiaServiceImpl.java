@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-
+import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Log4j2
 @Service
@@ -29,6 +30,12 @@ public class MafiaServiceImpl implements MafiaService {
         padrino = null;
     }
 
+    @Override
+    public void clearFamily() {
+        mafiaJailIndex = new HashMap<>();
+        mafiaIndex = new HashMap<>();
+        padrino = null;
+    }
 
     @Override
     public void addMember(Member member) {
@@ -91,6 +98,19 @@ public class MafiaServiceImpl implements MafiaService {
     }
 
     @Override
+    public Member getMember(UUID id) {
+        return mafiaIndex.get(id);
+    }
+
+    @Override
+    public Member getOldestSubordinate(UUID id) {
+        return !CollectionUtils.isEmpty(mafiaIndex.get(id).getSubordinates()) ?
+            mafiaIndex.get(id).getSubordinates().stream()
+                .map(subId -> mafiaIndex.get(subId))
+                .sorted(Comparator.comparing(Member::getJoinDate)).findFirst().orElseGet(null):null;
+    }
+
+    @Override
     public void generateRandomFamily(int levels, int maxSubordinates, boolean alwaysMax) {
         resetFamily();
         var padrino = Member.randomMember();
@@ -132,15 +152,18 @@ public class MafiaServiceImpl implements MafiaService {
         // Remove the murdered for the boss
         memberRemovedBoss.removeSubordinate(idToRemove);
         // Find the oldest same level member
-        Member newBossForSubordinates= memberRemovedBoss.getSubordinates().stream()
-                .map(id -> mafiaIndex.get(id))
-                .sorted(Comparator.comparing(Member::getJoinDate)).findFirst().orElseGet(null);
-        // Set the new boss for the murdered member subordinates
-        // and
-        // Add the murdered member subordinates to the new boss
-        memberRemovedBoss.getSubordinates().stream().forEach(id -> {
-            mafiaIndex.get(id).setIdBoss(newBossForSubordinates.getId());
-            newBossForSubordinates.addSubordinate(id);
-        });
+        // If there's no other subordinate for the boss of the removed member
+        // we promote the oldest subordinate of the removed member
+        Member newBossForSubordinates = Optional.ofNullable(getOldestSubordinate(memberRemovedBoss.getId())).orElse(getOldestSubordinate(memberRemoved.getId()));
+        if(newBossForSubordinates != null){
+            // Set the new boss for the murdered member subordinates
+            // and
+            // Add the murdered member subordinates to the new boss
+            memberRemoved.getSubordinates().stream().forEach(id -> {
+                mafiaIndex.get(id).setIdBoss(newBossForSubordinates.getId());
+                newBossForSubordinates.addSubordinate(id);
+            });
+        }
+
     }
 }

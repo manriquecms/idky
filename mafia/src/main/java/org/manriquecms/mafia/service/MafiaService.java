@@ -12,6 +12,8 @@ import java.util.UUID;
 @Configurable
 public interface MafiaService {
     List<Member> getMembers();
+    Member getMember(UUID id);
+    Member getOldestSubordinate(UUID id);
     void addMember(Member member);
     void memberToJail(UUID id);
     void freeMemberFromJail(UUID id);
@@ -20,4 +22,5 @@ public interface MafiaService {
     boolean needSpecialSurveillance(UUID id);
     Set<Member> findAllSpecialSurveillance();
     void generateRandomFamily(int levels, int maxSubordinates, boolean alwaysMax);
+    void clearFamily();
 }
