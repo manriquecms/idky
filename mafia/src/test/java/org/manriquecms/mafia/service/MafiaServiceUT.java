@@ -39,8 +39,12 @@ public class MafiaServiceUT {
 
     @Test
     public void generateRandomFamily() {
-        mafiaService.generateRandomFamily(5, 5);
+        mafiaService.generateRandomFamily(4, 5, true);
         var members = mafiaService.getMembers();
-        Assert.assertNotNull("Generated family", members);
+        Assert.assertNotNull("Generated family is not null", members);
+        Assert.assertTrue("There are 781 members in the family", members.size() == 781);
+        var special = mafiaService.findAllSpecialSurveillance();
+        Assert.assertNotNull("Special Surveillance members is not null", members);
+        Assert.assertTrue("There are 6 in special surveillance", special.size() == 6);
     }
 }
