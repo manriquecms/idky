@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Log4j2
 @Service
@@ -58,7 +56,13 @@ public class MafiaServiceImpl implements MafiaService {
 
     @Override
     public void freeMemberFromJail(UUID id) {
-
+        // Include again in the current family
+        var memberReleased = mafiaJailIndex.remove(id);
+        mafiaIndex.put(memberReleased.getId(),memberReleased);
+        // We put him as a subordinate again to the ex-boss
+        mafiaIndex.get(memberReleased.getIdBoss()).addSubordinate(id);
+        // For each ex-subordinates we change the boss for their to the released member
+        memberReleased.getSubordinates().forEach(idSub -> changeBossToMember(idSub, memberReleased.getId()));
     }
 
     @Override
@@ -154,15 +158,24 @@ public class MafiaServiceImpl implements MafiaService {
         // Find the oldest same level member
         // If there's no other subordinate for the boss of the removed member
         // we promote the oldest subordinate of the removed member
-        Member newBossForSubordinates = Optional.ofNullable(getOldestSubordinate(memberRemovedBoss.getId())).orElse(getOldestSubordinate(memberRemoved.getId()));
+        Member newBossForSubordinates =
+                Optional.ofNullable(getOldestSubordinate(memberRemovedBoss.getId()))
+                        .orElse(getOldestSubordinate(memberRemoved.getId()));
         if(newBossForSubordinates != null){
             // Set the new boss for the murdered member subordinates
             // and
             // Add the murdered member subordinates to the new boss
             memberRemoved.getSubordinates().stream().forEach(id -> {
-                mafiaIndex.get(id).setIdBoss(newBossForSubordinates.getId());
-                newBossForSubordinates.addSubordinate(id);
+                if(!id.equals(newBossForSubordinates.getId())) {
+                    mafiaIndex.get(id).setIdBoss(newBossForSubordinates.getId());
+                    newBossForSubordinates.addSubordinate(id);
+                }
             });
+            // If the new boss was a subordinate, assign the boss to the member removed boss
+            if (memberRemoved.getSubordinates().contains(newBossForSubordinates.getId())) {
+                memberRemovedBoss.addSubordinate(newBossForSubordinates.getId());
+                newBossForSubordinates.setIdBoss(memberRemovedBoss.getId());
+            }
         }
 
     }
