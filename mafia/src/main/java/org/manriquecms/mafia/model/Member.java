@@ -29,7 +29,7 @@ public class Member {
     }
 
     public static Member randomMember(UUID idBoss) {
-        return new Member(faker.name().fullName(),faker.date().past(10,TimeUnit.SECONDS),idBoss,new HashSet<>());
+        return new Member(faker.name().fullName(),faker.date().past(365,TimeUnit.DAYS),idBoss,new HashSet<>());
     }
     public static Member randomMember() {
         return randomMember(new UUID(0,0));
