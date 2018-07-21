@@ -1,11 +1,11 @@
-package org.manriquecms.phonebill.util;
+package org.manriquecms.core.util;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
 
-public class StaticUtilsTest {
+public class StaticUtilsUT {
 
     @Test
     public void testReadTime(){

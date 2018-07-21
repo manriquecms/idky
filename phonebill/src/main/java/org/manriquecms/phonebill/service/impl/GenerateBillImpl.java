@@ -1,9 +1,9 @@
 package org.manriquecms.phonebill.service.impl;
 
+import org.manriquecms.core.util.StaticUtils;
 import org.manriquecms.phonebill.model.Call;
 import org.manriquecms.phonebill.model.Phonebill;
 import org.manriquecms.phonebill.service.GenerateBill;
-import org.manriquecms.phonebill.util.StaticUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
