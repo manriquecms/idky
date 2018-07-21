@@ -3,7 +3,7 @@ package org.manriquecms.mafia.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static org.manriquecms.mafia.util.StaticUtils.faker;
+import static org.manriquecms.core.util.StaticUtils.faker;
 
 import java.util.Date;
 import java.util.HashSet;

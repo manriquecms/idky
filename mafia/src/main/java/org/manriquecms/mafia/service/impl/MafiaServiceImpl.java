@@ -3,7 +3,7 @@ package org.manriquecms.mafia.service.impl;
 import lombok.extern.log4j.Log4j2;
 import org.manriquecms.mafia.model.Member;
 import org.manriquecms.mafia.service.MafiaService;
-import static org.manriquecms.mafia.util.StaticUtils.random;
+import static org.manriquecms.core.util.StaticUtils.random;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

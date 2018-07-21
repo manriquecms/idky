@@ -3,13 +3,9 @@ package org.manriquecms.mafia.controller;
 import org.manriquecms.mafia.model.Member;
 import org.manriquecms.mafia.service.MafiaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/mafia")
