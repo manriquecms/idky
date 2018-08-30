@@ -4,7 +4,7 @@ import akka.actor.*;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class ExampleActor extends MyAbstractActor {
+public class ExampleActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
@@ -27,5 +27,9 @@ public class ExampleActor extends MyAbstractActor {
 
     public static Props props() {
         return Props.create(ExampleActor.class);
+    }
+
+    protected void logMessage(String message){
+        log.info("["+getSelf().path()+"] "+message);
     }
 }

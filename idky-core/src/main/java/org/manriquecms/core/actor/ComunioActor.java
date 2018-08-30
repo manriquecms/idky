@@ -7,7 +7,7 @@ import org.manriquecms.core.service.ComunioService;
 import org.manriquecms.core.service.impl.ComunioServiceImpl;
 
 @Log4j2
-public class ComunioActor extends MyAbstractActor {
+public class ComunioActor extends AbstractActor {
 
     ComunioService comunioService = ComunioServiceImpl.getInstance();
 
@@ -26,5 +26,9 @@ public class ComunioActor extends MyAbstractActor {
 
     public static Props props() {
         return Props.create(ComunioActor.class);
+    }
+
+    protected void logMessage(String message){
+        log.info("["+getSelf().path()+"] "+message);
     }
 }
